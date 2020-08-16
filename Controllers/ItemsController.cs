@@ -252,6 +252,7 @@ namespace InventoryManagement.Controllers
 
             using (var db = new DatabaseAccess())
             {
+                // check for conflicts
                 foreach (Item item in items)
                 {
                     if (db.ItemTypes.Find(item.ItemTypeUPC) == null)
@@ -263,9 +264,8 @@ namespace InventoryManagement.Controllers
                     {
                         return Conflict("An item with that qr code already exists");
                     }
-
-                    db.Items.Add(item);
                 }
+                db.Items.AddRange(items);
                 db.SaveChanges();
                 return Accepted(items.Select(i => i.Id).ToArray());
             }

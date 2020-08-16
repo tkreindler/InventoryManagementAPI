@@ -14,7 +14,7 @@ namespace InventoryManagement.Models
         /// The unique identifier for this item
         /// </summary>
         [Key]
-        public long Id { get; set; }
+        public long Id { get; set; } = 0;
 
         #region Constructors
 
