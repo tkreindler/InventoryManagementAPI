@@ -391,7 +391,7 @@ namespace InventoryManagement.Controllers
 
                     var item = new Item
                     {
-                        Id = long.Parse(formatter.FormatCellValue(row.GetCell(itemsColumnIndices[0]))),
+                        Id = 0,
                         ItemTypeUPC = long.Parse(formatter.FormatCellValue(row.GetCell(itemsColumnIndices[1]))),
                         OrderNumberToSeller = getStringValue(row.GetCell(itemsColumnIndices[2])),
                         OrderNumberToBuyer = getStringValue(row.GetCell(itemsColumnIndices[3])),
