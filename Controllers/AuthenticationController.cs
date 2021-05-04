@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using InventoryManagement.Models;
+using InventoryManagement.ProtoModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -85,8 +86,16 @@ namespace InventoryManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult Authenticate(AuthenticationModel model)
+        public IActionResult Authenticate()
         {
+            var stream = Request.BodyReader.AsStream();
+            var protoModel = ProtoModels.AuthenticationModel.Parser.ParseFrom(stream);
+
+            var model = new Models.AuthenticationModel();
+
+            model.Username = protoModel.Username;
+            model.Password = protoModel.Password;
+
             using (var db = new DatabaseAccess())
             {
                 var user = db.Users.Where(
