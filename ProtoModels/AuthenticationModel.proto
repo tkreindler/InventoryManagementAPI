@@ -1,0 +1,6 @@
+option csharp_namespace = "InventoryManagement.ProtoModels.AuthenticationModel";
+
+message AuthenticationModel {
+  string Username = 1;
+  string Password = 2;
+}

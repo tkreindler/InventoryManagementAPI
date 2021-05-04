@@ -4,12 +4,20 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.15.8" />
+    <!-- The Grpc.Tools package generates C# sources from .proto files during
+         project build, but is not needed by projects using the built library.
+         It's IMPORTANT to add the 'PrivateAssets="All"' to this reference: -->
+    <PackageReference Include="Grpc.Tools" Version="1.17.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.5.1" />
     <PackageReference Include="NPOI" Version="2.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="ProtoModels/*.proto" />
   </ItemGroup>
   <!-- <Target Name="PrePublishTarget" AfterTargets="Publish">
     <Exec Command="echo &quot;Migrating Database ...&quot;" />
