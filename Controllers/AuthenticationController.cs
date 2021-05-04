@@ -91,23 +91,18 @@ namespace InventoryManagement.Controllers
             var stream = Request.BodyReader.AsStream();
             var protoModel = ProtoModels.AuthenticationModel.Parser.ParseFrom(stream);
 
-            var model = new Models.AuthenticationModel();
-
-            model.Username = protoModel.Username;
-            model.Password = protoModel.Password;
-
             using (var db = new DatabaseAccess())
             {
                 var user = db.Users.Where(
-                    user => user.Username == model.Username.ToLower())
+                    user => user.Username == protoModel.Username.ToLower())
                     .FirstOrDefault();
-                
+
                 if (user == null)
                 {
                     return BadRequest("User doesn't exist.");
                 }
 
-                bool valid = user.VerifyPassword(model.Password);
+                bool valid = user.VerifyPassword(protoModel.Password);
 
                 if (valid)
                 {
